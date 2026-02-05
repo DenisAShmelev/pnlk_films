@@ -15,6 +15,7 @@ styled_df = df.style.set_properties(
     subset=['Имя'],
     **{
         'color': '#90F0B7',
+        'background-color', '#E0B8A0'
         'font-weight': '500'
     }
 ).set_table_styles([
