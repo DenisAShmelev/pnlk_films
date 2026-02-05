@@ -14,11 +14,11 @@ df = pd.DataFrame({
 styled_df = df.style.set_properties(
     subset=['Имя'],
     **{
-        'color': '#D9D9D9',
+        'color': '#90F0B7',
         'font-weight': '500'
     }
 ).set_table_styles([
-    {'selector': 'th', 'props': [('background-color', '#f0f0f0')]}
+    {'selector': 'th', 'props': [('background-color', '#E0B8A0')]}
 ])
 
 # Вывод
