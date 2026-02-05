@@ -176,19 +176,19 @@ df.index = range(1, len(df) + 1)
 # Переименовываем колонки
 df.columns = [chr(65 + i) for i in range(25)]
 
-# Выводим DataFrame
-print("DataFrame создан. Размер:", df.shape)
-print("\nПервые 10 строк:")
-print(df.head(10))
+#### Выводим DataFrame
+###print("DataFrame создан. Размер:", df.shape)
+###print("\nПервые 10 строк:")
+###print(df.head(10))
 
-# Сохраняем в Excel (с формулами как строками)
-output_file = 'ЗП_факт_прогноз_реплика.xlsx'
-df.to_excel(output_file, index=False)
-print(f"\nDataFrame сохранен в файл: {output_file}")
+#### Сохраняем в Excel (с формулами как строками)
+###output_file = 'ЗП_факт_прогноз_реплика.xlsx'
+###df.to_excel(output_file, index=False)
+###print(f"\nDataFrame сохранен в файл: {output_file}")
 
-# Показываем структуру
-print("\nСтруктура DataFrame:")
-print(df.info())
+#### Показываем структуру
+###print("\nСтруктура DataFrame:")
+###print(df.info())
 
 
 st.dataframe(df, use_container_width=True)  # Важно!
