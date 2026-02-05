@@ -243,77 +243,79 @@ df.index = range(1, len(df) + 1)
 # Переименовываем колонки
 df.columns = [chr(65 + i) for i in range(25)]
 
+
+
 # Создаем стилизованный вывод с цветом
-def print_styled_dataframe(df, num_rows=15):
-    """Вывод DataFrame с имитацией цветового форматирования"""
-    print("\n" + "="*150)
-    print("ФОРМАТИРОВАННЫЙ DATAFRAME С РАСЧЕТАМИ")
-    print("="*150)
+###def print_styled_dataframe(df, num_rows=15):
+###    """Вывод DataFrame с имитацией цветового форматирования"""
+###    print("\n" + "="*150)
+###    print("ФОРМАТИРОВАННЫЙ DATAFRAME С РАСЧЕТАМИ")
+###    print("="*150)
     
-    # Выводим заголовки с цветом (имитация)
-    print("\n\033[1;34m" + "Первые строки DataFrame:" + "\033[0m")
-    print(df.head(num_rows).to_string())
+###    # Выводим заголовки с цветом (имитация)
+###    print("\n\033[1;34m" + "Первые строки DataFrame:" + "\033[0m")
+###    print(df.head(num_rows).to_string())
     
-    # Выводим пример расчета
-    print("\n\033[1;32m" + "Пример расчета для ИП 1:" + "\033[0m")
-    ip1_row = df[df['A'] == 'ИП 1'].iloc[0]
-    print(f"ФОТ з24: {ip1_row['C']}")
-    print(f"На руках з24 (87%): {ip1_row['D']}")
-    print(f"ФОТ л24 (+5.5%): {ip1_row['F']}")
-    print(f"На руках л24: {ip1_row['G']}")
-    print(f"Прибавка л24: {ip1_row['H']}")
+###    # Выводим пример расчета
+###    print("\n\033[1;32m" + "Пример расчета для ИП 1:" + "\033[0m")
+###    ip1_row = df[df['A'] == 'ИП 1'].iloc[0]
+###    print(f"ФОТ з24: {ip1_row['C']}")
+###    print(f"На руках з24 (87%): {ip1_row['D']}")
+###    print(f"ФОТ л24 (+5.5%): {ip1_row['F']}")
+###    print(f"На руках л24: {ip1_row['G']}")
+###    print(f"Прибавка л24: {ip1_row['H']}")
 
 # Выводим информацию о DataFrame
-print("\n" + "="*150)
-print("ИНФОРМАЦИЯ О DATAFRAME")
-print("="*150)
-print(f"Размер: {df.shape}")
-print(f"Колонки: {list(df.columns)}")
+###print("\n" + "="*150)
+###print("ИНФОРМАЦИЯ О DATAFRAME")
+###print("="*150)
+###print(f"Размер: {df.shape}")
+###print(f"Колонки: {list(df.columns)}")
 
 # Показываем структуру
-print("\n\033[1;33m" + "СТРУКТУРА ДАННЫХ:" + "\033[0m")
-print(df.info())
+###print("\n\033[1;33m" + "СТРУКТУРА ДАННЫХ:" + "\033[0m")
+###print(df.info())
 
-# Выводим стилизованный DataFrame
-print_styled_dataframe(df)
+#### Выводим стилизованный DataFrame
+###print_styled_dataframe(df)
 
 # Сохраняем в Excel (с вычисленными значениями)
-output_file = 'ЗП_факт_прогноз_рассчитанный.xlsx'
-df.to_excel(output_file, index=False)
-print(f"\n\033[1;32m✓ DataFrame сохранен в файл: {output_file}\033[0m")
+###output_file = 'ЗП_факт_прогноз_рассчитанный.xlsx'
+###df.to_excel(output_file, index=False)
+###print(f"\n\033[1;32m✓ DataFrame сохранен в файл: {output_file}\033[0m")
 
 # Также сохраняем с формулами как комментарии
-output_file_with_formulas = 'ЗП_факт_прогноз_с_формулами.xlsx'
-df_with_formulas = df.copy()
+###output_file_with_formulas = 'ЗП_факт_прогноз_с_формулами.xlsx'
+###df_with_formulas = df.copy()
 
 # Добавляем формулы как комментарии в отдельный файл
-df_with_formulas.to_excel(output_file_with_formulas, index=False)
-print(f"\033[1;32m✓ Версия с формулами сохранена в: {output_file_with_formulas}\033[0m")
+###df_with_formulas.to_excel(output_file_with_formulas, index=False)
+###print(f"\033[1;32m✓ Версия с формулами сохранена в: {output_file_with_formulas}\033[0m")
 
 # Создаем сводную таблицу с ключевыми показателями
-print("\n" + "="*150)
-print("\033[1;35m" + "СВОДНАЯ ИНФОРМАЦИЯ:" + "\033[0m")
+###print("\n" + "="*150)
+###print("\033[1;35m" + "СВОДНАЯ ИНФОРМАЦИЯ:" + "\033[0m")
 
 # Фильтруем строки с данными
-data_rows_df = df[(df['A'] != '') & (df['C'] != '')]
+###data_rows_df = df[(df['A'] != '') & (df['C'] != '')]
 
-if not data_rows_df.empty:
-    print(f"\nКоличество должностей с данными: {len(data_rows_df)}")
+###if not data_rows_df.empty:
+###    print(f"\nКоличество должностей с данными: {len(data_rows_df)}")
     
-    # Средние значения
-    avg_z24 = data_rows_df['C'].apply(pd.to_numeric, errors='coerce').mean()
-    avg_hand_z26 = data_rows_df['T'].apply(pd.to_numeric, errors='coerce').mean()
+###    # Средние значения
+###    avg_z24 = data_rows_df['C'].apply(pd.to_numeric, errors='coerce').mean()
+###    avg_hand_z26 = data_rows_df['T'].apply(pd.to_numeric, errors='coerce').mean()
     
-    print(f"Средний ФОТ з24: {round(avg_z24, 2)}")
-    print(f"Средняя зарплата на руки з26: {round(avg_hand_z26, 2)}")
+###    print(f"Средний ФОТ з24: {round(avg_z24, 2)}")
+###    print(f"Средняя зарплата на руки з26: {round(avg_hand_z26, 2)}")
     
-    # Максимальные значения
-    max_hand_z26 = data_rows_df['T'].apply(pd.to_numeric, errors='coerce').max()
-    max_row = data_rows_df[data_rows_df['T'].apply(pd.to_numeric, errors='coerce') == max_hand_z26]
+###    # Максимальные значения
+###    max_hand_z26 = data_rows_df['T'].apply(pd.to_numeric, errors='coerce').max()
+###    max_row = data_rows_df[data_rows_df['T'].apply(pd.to_numeric, errors='coerce') == max_hand_z26]
     
-    if not max_row.empty:
-        print(f"\nСамая высокая зарплата на руки з26: {round(max_hand_z26, 2)}")
-        print(f"Должность: {max_row.iloc[0]['B']} ({max_row.iloc[0]['A']})")
+###    if not max_row.empty:
+###        print(f"\nСамая высокая зарплата на руки з26: {round(max_hand_z26, 2)}")
+###        print(f"Должность: {max_row.iloc[0]['B']} ({max_row.iloc[0]['A']})")
 
 #### Выводим полный DataFrame в конце
 ###print("\n" + "="*150)
