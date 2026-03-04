@@ -5,9 +5,9 @@ st.title("Калькулятор инвестиций")
 
 # Инициализация состояния сессии
 if "profit" not in st.session_state:
-    st.session_state.profit = 0.0
+    st.session_state.profit = 0.0  # Значение по умолчанию для прибыли
 if "total_amount" not in st.session_state:
-    st.session_state.total_amount = 0.0
+    st.session_state.total_amount = 0.0  # Значение по умолчанию для суммы с прибылью
 
 # Функция для расчета
 def calculate_profit():
@@ -70,7 +70,7 @@ with col3:
 with col4:
     st.number_input(
         "Прибыль",
-        value=st.session_state.profit,
+        value=st.session_state.profit,  # Значение берется из session_state
         step=0.01,
         key="profit",
         on_change=calculate_profit
@@ -80,7 +80,7 @@ with col4:
 with col5:
     st.number_input(
         "Сумма с прибылью",
-        value=st.session_state.total_amount,
+        value=st.session_state.total_amount,  # Значение берется из session_state
         step=0.01,
         key="total_amount",
         on_change=calculate_profit
