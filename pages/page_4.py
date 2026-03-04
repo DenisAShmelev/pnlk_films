@@ -9,18 +9,32 @@ if "profit" not in st.session_state:
 if "total_amount" not in st.session_state:
     st.session_state.total_amount = 0.0
 
+# Функция для расчета
+def calculate_profit():
+    amount = st.session_state.amount
+    interest_rate = st.session_state.interest_rate
+    term_months = st.session_state.term_months
+
+    if amount > 0 and interest_rate > 0 and term_months > 0:
+        calculated_profit = (amount / 100 * interest_rate) / 12 * term_months
+        st.session_state.profit = calculated_profit
+        st.session_state.total_amount = amount + calculated_profit
+    else:
+        st.session_state.profit = 0.0
+        st.session_state.total_amount = 0.0
+
 # Создаем колонки для размещения элементов в один ряд
 col1, col2, col3, col4, col5 = st.columns(5)
 
 # В каждой колонке добавляем поле ввода с соответствующей подписью
 with col1:
-    amount = st.number_input("Сумма", value=1000.0, step=0.01, key="amount")
+    amount = st.number_input("Сумма", value=1000.0, step=0.01, key="amount", on_change=calculate_profit)
 
 with col2:
-    interest_rate = st.number_input("Процент", value=12.5, step=0.01, key="interest_rate")
+    interest_rate = st.number_input("Процент", value=12.5, step=0.01, key="interest_rate", on_change=calculate_profit)
 
 with col3:
-    term_months = st.number_input("Срок в месяцах", value=2, step=1, key="term_months")
+    term_months = st.number_input("Срок в месяцах", value=2, step=1, key="term_months", on_change=calculate_profit)
 
 with col4:
     # Поле "Прибыль" защищено от ручного ввода
@@ -29,22 +43,3 @@ with col4:
 with col5:
     # Поле "Сумма с прибылью" защищено от ручного ввода
     total_amount = st.text_input("Сумма с прибылью", value=f"{st.session_state.total_amount:.2f}", disabled=True, key="total_amount_display")
-
-# Функция для расчета
-def calculate_profit(amount, interest_rate, term_months):
-    if amount > 0 and interest_rate > 0 and term_months > 0:
-        return (amount / 100 * interest_rate) / 12 * term_months
-    return 0.0
-
-# Выполняем расчет при каждом изменении значений
-if "amount" in st.session_state and "interest_rate" in st.session_state and "term_months" in st.session_state:
-    amount = st.session_state["amount"]
-    interest_rate = st.session_state["interest_rate"]
-    term_months = st.session_state["term_months"]
-
-    # Расчет по формуле
-    calculated_profit = calculate_profit(amount, interest_rate, term_months)
-    
-    # Обновляем состояние сессии для полей "Прибыль" и "Сумма с прибылью"
-    st.session_state.profit = calculated_profit
-    st.session_state.total_amount = amount + calculated_profit
