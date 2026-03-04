@@ -43,7 +43,8 @@ with col1:
         value=1000.0,
         step=0.01,
         key="amount",
-        on_change=calculate_profit
+        on_change=calculate_profit,
+        use_container_width=True  # Растягиваем поле на всю ширину колонки
     )
 
 # Поле ввода "Процент"
@@ -53,7 +54,8 @@ with col2:
         value=12.5,
         step=0.01,
         key="interest_rate",
-        on_change=calculate_profit
+        on_change=calculate_profit,
+        use_container_width=True  # Растягиваем поле на всю ширину колонки
     )
 
 # Поле ввода "Срок в месяцах"
@@ -63,7 +65,8 @@ with col3:
         value=2,
         step=1,
         key="term_months",
-        on_change=calculate_profit
+        on_change=calculate_profit,
+        use_container_width=True  # Растягиваем поле на всю ширину колонки
     )
 
 # Поле ввода "Прибыль"
@@ -73,7 +76,8 @@ with col4:
         value=st.session_state.profit,  # Значение берется из session_state
         step=0.01,
         key="profit",
-        on_change=calculate_profit
+        on_change=calculate_profit,
+        use_container_width=True  # Растягиваем поле на всю ширину колонки
     )
 
 # Поле ввода "Сумма с прибылью"
@@ -83,5 +87,6 @@ with col5:
         value=st.session_state.total_amount,  # Значение берется из session_state
         step=0.01,
         key="total_amount",
-        on_change=calculate_profit
+        on_change=calculate_profit,
+        use_container_width=True  # Растягиваем поле на всю ширину колонки
     )
