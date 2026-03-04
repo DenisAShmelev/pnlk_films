@@ -18,7 +18,7 @@ with col3:
 
 with col4:
     # Поле "Прибыль" будет обновляться после расчета
-    profit = st.number_input("Прибыль", value=0.0, step=0.01)
+    profit = st.number_input("Прибыль", value=st.session_state.get("profit", 0.0), step=0.01)
 
 with col5:
     total_amount = st.number_input("Сумма", value=0.0, step=0.01)
@@ -33,12 +33,9 @@ if st.button("Рассчитать"):
         # Выводим результат текстом
         st.success(f"Расчетная прибыль: {a:.2f}")
         
-        # Обновляем поле ввода "Прибыль"
-        profit = a
-        st.session_state.profit = a  # Сохраняем значение в состоянии сессии
+        # Обновляем значение в состоянии сессии
+        st.session_state.profit = a
     else:
         st.error("Пожалуйста, убедитесь, что все поля заполнены корректно.")
 
-# Обновляем поле ввода "Прибыль" из состояния сессии
-if 'profit' in st.session_state:
-    profit = st.number_input("Прибыль", value=st.session_state.profit, step=0.01)
+# Если состояние сессии обновлено, поле "Прибыль" автоматически отобразит новое значение
