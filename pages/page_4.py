@@ -20,7 +20,7 @@ with col4:
     profit = st.number_input("Прибыль", value=0.0, step=0.01)
 
 with col5:
-    total_amount = st.number_input("Сумма", value=0.0, step=0.01)
+    total_amount = st.number_input("Сумма с прибылью", value=0.0, step=0.01)
 
 # Можно добавить дополнительную логику или кнопку для расчетов
 if st.button("Рассчитать"):
