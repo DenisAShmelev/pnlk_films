@@ -66,20 +66,24 @@ with col3:
         on_change=calculate_profit
     )
 
-# Поле "Прибыль" (только для чтения)
+# Пустые контейнеры для динамического обновления текстовых полей
 with col4:
-    st.text_input(
-        "Прибыль",
-        value=f"{st.session_state.profit:.2f}",
-        disabled=True,
-        key="profit_display"
-    )
+    profit_container = st.empty()  # Контейнер для поля "Прибыль"
 
-# Поле "Сумма с прибылью" (только для чтения)
 with col5:
-    st.text_input(
-        "Сумма с прибылью",
-        value=f"{st.session_state.total_amount:.2f}",
-        disabled=True,
-        key="total_amount_display"
-    )
+    total_amount_container = st.empty()  # Контейнер для поля "Сумма с прибылью"
+
+# Обновляем содержимое контейнеров
+profit_container.text_input(
+    "Прибыль",
+    value=f"{st.session_state.profit:.2f}",
+    disabled=True,
+    key="profit_display"
+)
+
+total_amount_container.text_input(
+    "Сумма с прибылью",
+    value=f"{st.session_state.total_amount:.2f}",
+    disabled=True,
+    key="total_amount_display"
+)
