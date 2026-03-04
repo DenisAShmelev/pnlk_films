@@ -3,6 +3,12 @@ import streamlit as st
 # Заголовок страницы
 st.title("Калькулятор инвестиций")
 
+# Инициализация состояния сессии для расчетных полей
+if "profit" not in st.session_state:
+    st.session_state.profit = 0.0
+if "total_amount" not in st.session_state:
+    st.session_state.total_amount = 0.0
+
 # Создаем колонки для размещения элементов в один ряд
 col1, col2, col3, col4, col5 = st.columns(5)
 
@@ -18,11 +24,11 @@ with col3:
 
 with col4:
     # Поле "Прибыль" защищено от ручного ввода
-    profit = st.text_input("Прибыль", value=f"{st.session_state.get('profit', 0.0):.2f}", disabled=True, key="profit_display")
+    profit = st.text_input("Прибыль", value=f"{st.session_state.profit:.2f}", disabled=True, key="profit_display")
 
 with col5:
     # Поле "Сумма с прибылью" защищено от ручного ввода
-    total_amount = st.text_input("Сумма с прибылью", value=f"{st.session_state.get('total_amount', 0.0):.2f}", disabled=True, key="total_amount_display")
+    total_amount = st.text_input("Сумма с прибылью", value=f"{st.session_state.total_amount:.2f}", disabled=True, key="total_amount_display")
 
 # Функция для расчета
 def calculate_profit(amount, interest_rate, term_months):
@@ -42,3 +48,6 @@ if "amount" in st.session_state and "interest_rate" in st.session_state and "ter
     # Обновляем состояние сессии для полей "Прибыль" и "Сумма с прибылью"
     st.session_state.profit = calculated_profit
     st.session_state.total_amount = amount + calculated_profit
+
+    # Перезапускаем приложение для обновления интерфейса
+    st.experimental_rerun()
