@@ -43,13 +43,6 @@ if "amount" in st.session_state and "interest_rate" in st.session_state and "ter
     st.session_state.profit = calculated_profit
     st.session_state.total_amount = amount + calculated_profit
 
-# Обновляем значения в полях "Прибыль" и "Сумма с прибылью"
-profit = st.session_state.get("profit", 0.0)
-total_amount = st.session_state.get("total_amount", 0.0)
-
-# Обновляем текстовые поля в интерфейсе
-with col4:
-    st.text_input("Прибыль", value=f"{profit:.2f}", disabled=True, key="profit_display")
-
-with col5:
-    st.text_input("Сумма с прибылью", value=f"{total_amount:.2f}", disabled=True, key="total_amount_display")
+# Обновляем значения в текстовых полях через st.session_state
+st.session_state["profit_display"] = f"{st.session_state.get('profit', 0.0):.2f}"
+st.session_state["total_amount_display"] = f"{st.session_state.get('total_amount', 0.0):.2f}"
