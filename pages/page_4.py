@@ -18,11 +18,11 @@ with col3:
 
 with col4:
     # Поле "Прибыль" защищено от ручного ввода
-    profit = st.text_input("Прибыль", value=str(st.session_state.get("profit", 0.0)), disabled=True, key="profit_display")
+    profit = st.text_input("Прибыль", value=f"{st.session_state.get('profit', 0.0):.2f}", disabled=True, key="profit_display")
 
 with col5:
     # Поле "Сумма с прибылью" защищено от ручного ввода
-    total_amount = st.text_input("Сумма с прибылью", value=str(st.session_state.get("total_amount", 0.0)), disabled=True, key="total_amount_display")
+    total_amount = st.text_input("Сумма с прибылью", value=f"{st.session_state.get('total_amount', 0.0):.2f}", disabled=True, key="total_amount_display")
 
 # Функция для расчета
 def calculate_profit(amount, interest_rate, term_months):
@@ -42,7 +42,3 @@ if "amount" in st.session_state and "interest_rate" in st.session_state and "ter
     # Обновляем состояние сессии для полей "Прибыль" и "Сумма с прибылью"
     st.session_state.profit = calculated_profit
     st.session_state.total_amount = amount + calculated_profit
-
-# Обновляем значения в текстовых полях через st.session_state
-st.session_state["profit_display"] = f"{st.session_state.get('profit', 0.0):.2f}"
-st.session_state["total_amount_display"] = f"{st.session_state.get('total_amount', 0.0):.2f}"
