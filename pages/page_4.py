@@ -11,18 +11,18 @@ with col1:
     amount = st.number_input("Сумма", value=1000.0, step=0.01, key="amount")
 
 with col2:
-    interest_rate = st.number_input("Процент", value=12.0, step=0.01, key="interest_rate")
+    interest_rate = st.number_input("Процент", value=12.5, step=0.01, key="interest_rate")
 
 with col3:
     term_months = st.number_input("Срок в месяцах", value=2, step=1, key="term_months")
 
 with col4:
     # Поле "Прибыль" защищено от ручного ввода
-    profit = st.text_input("Прибыль", value=str(st.session_state.get("profit", 0.0)), disabled=True)
+    profit = st.text_input("Прибыль", value=str(st.session_state.get("profit", 0.0)), disabled=True, key="profit_display")
 
 with col5:
-    # Поле "Сумма" защищено от ручного ввода
-    total_amount = st.text_input("Сумма", value=str(st.session_state.get("total_amount", 0.0)), disabled=True)
+    # Поле "Сумма с прибылью" защищено от ручного ввода
+    total_amount = st.text_input("Сумма с прибылью", value=str(st.session_state.get("total_amount", 0.0)), disabled=True, key="total_amount_display")
 
 # Функция для расчета
 def calculate_profit(amount, interest_rate, term_months):
@@ -39,17 +39,17 @@ if "amount" in st.session_state and "interest_rate" in st.session_state and "ter
     # Расчет по формуле
     calculated_profit = calculate_profit(amount, interest_rate, term_months)
     
-    # Обновляем состояние сессии для полей "Прибыль" и "Сумма"
+    # Обновляем состояние сессии для полей "Прибыль" и "Сумма с прибылью"
     st.session_state.profit = calculated_profit
     st.session_state.total_amount = amount + calculated_profit
 
-# Обновляем значения в полях "Прибыль" и "Сумма"
+# Обновляем значения в полях "Прибыль" и "Сумма с прибылью"
 profit = st.session_state.get("profit", 0.0)
 total_amount = st.session_state.get("total_amount", 0.0)
 
 # Обновляем текстовые поля в интерфейсе
 with col4:
-    st.text_input("Прибыль", value=f"{profit:.2f}", disabled=True)
+    st.text_input("Прибыль", value=f"{profit:.2f}", disabled=True, key="profit_display")
 
 with col5:
-    st.text_input("Сумма", value=f"{total_amount:.2f}", disabled=True)
+    st.text_input("Сумма с прибылью", value=f"{total_amount:.2f}", disabled=True, key="total_amount_display")
