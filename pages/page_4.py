@@ -23,6 +23,12 @@ def calculate_profit():
         st.session_state.profit = 0.0
         st.session_state.total_amount = 0.0
 
+    # Выводим результат текстом
+    if st.session_state.profit > 0:
+        st.success(f"Расчетная прибыль: {st.session_state.profit:.2f}, Сумма с прибылью: {st.session_state.total_amount:.2f}")
+    else:
+        st.error("Пожалуйста, убедитесь, что все поля заполнены корректно.")
+
 # Создаем колонки для размещения элементов в один ряд
 col1, col2, col3, col4, col5 = st.columns(5)
 
