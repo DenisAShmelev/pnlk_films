@@ -8,13 +8,13 @@ col1, col2, col3, col4, col5 = st.columns(5)
 
 # В каждой колонке добавляем поле ввода с соответствующей подписью
 with col1:
-    amount = st.number_input("Сумма", value=0.0, step=0.01)
+    amount = st.number_input("Сумма", value=1000.0, step=0.01)
 
 with col2:
-    interest_rate = st.number_input("Процент", value=0.0, step=0.01)
+    interest_rate = st.number_input("Процент", value=15.0, step=0.01)
 
 with col3:
-    term_months = st.number_input("Срок в месяцах", value=0, step=1)
+    term_months = st.number_input("Срок в месяцах", value=2, step=1)
 
 with col4:
     profit = st.number_input("Прибыль", value=0.0, step=0.01)
