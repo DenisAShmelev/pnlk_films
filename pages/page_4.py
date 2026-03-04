@@ -3,6 +3,22 @@ import streamlit as st
 # Заголовок страницы
 st.title("Калькулятор инвестиций")
 
+# Добавляем CSS для увеличения ширины полей ввода
+st.markdown(
+    """
+    <style>
+    /* Увеличиваем ширину всех полей ввода */
+    input[type="number"] {
+        width: 100%;
+        max-width: 200px; /* Максимальная ширина */
+        padding: 8px;     /* Внутренний отступ */
+        box-sizing: border-box; /* Учитываем padding в ширине */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # Инициализация состояния сессии
 if "profit" not in st.session_state:
     st.session_state.profit = 0.0  # Значение по умолчанию для прибыли
