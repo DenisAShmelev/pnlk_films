@@ -48,6 +48,3 @@ if "amount" in st.session_state and "interest_rate" in st.session_state and "ter
     # Обновляем состояние сессии для полей "Прибыль" и "Сумма с прибылью"
     st.session_state.profit = calculated_profit
     st.session_state.total_amount = amount + calculated_profit
-
-    # Перезапускаем приложение для обновления интерфейса
-    st.experimental_rerun()
