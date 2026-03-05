@@ -1,41 +1,68 @@
 import streamlit as st
 
-# Настройка страницы (опционально, для лучшей видимости)
-st.set_page_config(layout="wide")
+# --- НАСТРОЙКИ ПО УМОЛЧАНИЮ ---
+DEFAULT_AMOUNT = 100000.0      # Сумма
+DEFAULT_PERCENT = 12.5         # Процент годовых
+DEFAULT_MONTHS = 12            # Срок в месяцах
 
+# Заголовок страницы
 st.title("Qwen3.5-397B-A17B")
-st.write("Заполните поля ниже:")
 
-# Создаем 5 колонок в один ряд
-# st.columns возвращает список контейнеров (col1, col2, ...)
-cols = st.columns(5)
+# Создаем колонки для размещения элементов в один ряд
+col1, col2, col3, col4, col5 = st.columns(5)
 
-# Размещаем поля ввода в каждой колонке
-with cols[0]:
-    amount = st.number_input("Сумма", min_value=0.0, step=1000.0)
+# 1. Поле ввода "Сумма"
+with col1:
+    amount = st.number_input(
+        "Сумма", 
+        value=DEFAULT_AMOUNT, 
+        step=1000.0,
+        key="input_amount"
+    )
 
-with cols[1]:
-    percent = st.number_input("Процент", min_value=0.0, max_value=100.0, step=0.1)
+# 2. Поле ввода "Процент"
+with col2:
+    percent = st.number_input(
+        "Процент", 
+        value=DEFAULT_PERCENT, 
+        step=0.1,
+        key="input_percent"
+    )
 
-with cols[2]:
-    months = st.number_input("Срок в месяцах", min_value=1, step=1)
+# 3. Поле ввода "Срок в месяцах"
+with col3:
+    months = st.number_input(
+        "Срок в месяцах", 
+        value=DEFAULT_MONTHS, 
+        step=1,
+        key="input_months"
+    )
 
-with cols[3]:
-    # Это поле можно сделать доступным только для чтения (disabled), 
-    # если прибыль рассчитывается автоматически, или оставить editable.
-    profit = st.number_input("Прибыль", min_value=0.0, step=100.0)
+# Логика расчета (опционально, чтобы поля справа заполнялись автоматически)
+# Формула: Прибыль = Сумма * (Процент / 100) * (Месяцы / 12)
+calculated_profit = amount * (percent / 100) * (months / 12)
+calculated_total = amount + calculated_profit
 
-with cols[4]:
-    total_amount = st.number_input("Сумма с прибылью", min_value=0.0, step=1000.0)
+# 4. Поле ввода "Прибыль"
+with col4:
+    profit = st.number_input(
+        "Прибыль", 
+        value=round(calculated_profit, 2), 
+        step=0.01,
+        key="input_profit"
+    )
 
-# Пример простой логики (опционально): 
-# Если вы хотите, чтобы поля считались автоматически при вводе первых трех значений:
-if amount > 0 and percent > 0 and months > 0:
-    # Формула: Сумма * (Процент/100) * (Месяцы/12) - пример сложного процента или простого
-    calculated_profit = amount * (percent / 100) * (months / 12)
-    calculated_total = amount + calculated_profit
-    
-    # Обновляем значения в сессии, если они не были изменены вручную (упрощенно)
-    # В реальном приложении здесь нужна более сложная логика с st.session_state
-    st.info(f"Расчетная прибыль: {calculated_profit:.2f}")
-    st.info(f"Расчетная сумма с прибылью: {calculated_total:.2f}")
+# 5. Поле ввода "Сумма с прибылью"
+with col5:
+    total_amount = st.number_input(
+        "Сумма с прибылью", 
+        value=round(calculated_total, 2), 
+        step=0.01,
+        key="input_total"
+    )
+
+# Отображение текущих настроек по умолчанию (для наглядности, можно удалить)
+with st.expander("Настройки по умолчанию"):
+    st.write(f"Стартовая сумма: {DEFAULT_AMOUNT}")
+    st.write(f"Стартовый процент: {DEFAULT_PERCENT}%")
+    st.write(f"Стартовый срок: {DEFAULT_MONTHS} мес.")
