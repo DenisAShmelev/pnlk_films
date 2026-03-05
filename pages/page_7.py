@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Заголовок страницы
-st.title("Калькулятор доходности")
+st.title("Qwen2.5-Max")
 
 # Создаем колонки для размещения элементов в один ряд
 col1, col2, col3, col4, col5 = st.columns(5)
