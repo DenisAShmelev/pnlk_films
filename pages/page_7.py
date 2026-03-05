@@ -3,20 +3,26 @@ import streamlit as st
 # Заголовок страницы
 st.title("Qwen2.5-Max")
 
+
+# Задаем значения по умолчанию
+default_amount = 1000.0  # Сумма по умолчанию
+default_percent = 5.0    # Процент по умолчанию
+default_months = 12      # Срок в месяцах по умолчанию
+
 # Создаем колонки для размещения элементов в один ряд
 col1, col2, col3, col4, col5 = st.columns(5)
 
 # Поле ввода "Сумма"
 with col1:
-    amount = st.number_input("Сумма", value=0.0, step=0.01)
+    amount = st.number_input("Сумма", value=default_amount, step=0.01)
 
 # Поле ввода "Процент"
 with col2:
-    percent = st.number_input("Процент", value=0.0, step=0.01)
+    percent = st.number_input("Процент", value=default_percent, step=0.01)
 
 # Поле ввода "Срок в месяцах"
 with col3:
-    months = st.number_input("Срок в месяцах", value=0, step=1)
+    months = st.number_input("Срок в месяцах", value=default_months, step=1)
 
 # Поле ввода "Прибыль"
 with col4:
