@@ -5,7 +5,7 @@ DEFAULT_AMOUNT = 100000.0
 DEFAULT_PERCENT = 12.5
 DEFAULT_MONTHS = 12
 
-st.title("Калькулятор доходности")
+st.title("Qwen3.5-397B-A17B")
 
 # Функция для пересчета значений
 def calculate_values():
