@@ -5,6 +5,8 @@ DEFAULT_AMOUNT = 100000.0
 DEFAULT_PERCENT = 12.5
 DEFAULT_MONTHS = 12
 
+st.title("Qwen3.5-Plus")
+
 # Инициализация session_state, если значения еще не установлены
 if "amount" not in st.session_state:
     st.session_state.amount = DEFAULT_AMOUNT
