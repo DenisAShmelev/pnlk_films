@@ -1,68 +1,92 @@
 import streamlit as st
 
 # --- НАСТРОЙКИ ПО УМОЛЧАНИЮ ---
-DEFAULT_AMOUNT = 100000.0      # Сумма
-DEFAULT_PERCENT = 12.5         # Процент годовых
-DEFAULT_MONTHS = 12            # Срок в месяцах
+DEFAULT_AMOUNT = 100000.0
+DEFAULT_PERCENT = 12.5
+DEFAULT_MONTHS = 12
 
-# Заголовок страницы
-st.title("Qwen3.5-397B-A17B")
+st.title("Калькулятор доходности")
 
-# Создаем колонки для размещения элементов в один ряд
+# Функция для пересчета значений
+def calculate_values():
+    # Получаем текущие значения из session_state (или дефолтные, если их еще нет)
+    amount = st.session_state.get("amount", DEFAULT_AMOUNT)
+    percent = st.session_state.get("percent", DEFAULT_PERCENT)
+    months = st.session_state.get("months", DEFAULT_MONTHS)
+    
+    # Логика расчета (простой процент)
+    if months > 0 and amount > 0:
+        profit = amount * (percent / 100) * (months / 12)
+        total = amount + profit
+    else:
+        profit = 0.0
+        total = amount if amount > 0 else 0.0
+    
+    # Округляем до 2 знаков после запятой для красоты
+    st.session_state["profit"] = round(profit, 2)
+    st.session_state["total"] = round(total, 2)
+
+# Инициализация состояния при первом запуске
+if "amount" not in st.session_state:
+    st.session_state.amount = DEFAULT_AMOUNT
+if "percent" not in st.session_state:
+    st.session_state.percent = DEFAULT_PERCENT
+if "months" not in st.session_state:
+    st.session_state.months = DEFAULT_MONTHS
+if "profit" not in st.session_state:
+    st.session_state.profit = 0.0
+if "total" not in st.session_state:
+    st.session_state.total = 0.0
+
+# Создаем колонки
 col1, col2, col3, col4, col5 = st.columns(5)
 
-# 1. Поле ввода "Сумма"
+# 1. Поле "Сумма"
 with col1:
-    amount = st.number_input(
+    st.number_input(
         "Сумма", 
-        value=DEFAULT_AMOUNT, 
+        key="amount",  # Ключ связывает виджет с переменной состояния
         step=1000.0,
-        key="input_amount"
+        on_change=calculate_values  # При изменении запускаем пересчет
     )
 
-# 2. Поле ввода "Процент"
+# 2. Поле "Процент"
 with col2:
-    percent = st.number_input(
+    st.number_input(
         "Процент", 
-        value=DEFAULT_PERCENT, 
+        key="percent", 
         step=0.1,
-        key="input_percent"
+        on_change=calculate_values
     )
 
-# 3. Поле ввода "Срок в месяцах"
+# 3. Поле "Срок в месяцах"
 with col3:
-    months = st.number_input(
+    st.number_input(
         "Срок в месяцах", 
-        value=DEFAULT_MONTHS, 
+        key="months", 
         step=1,
-        key="input_months"
+        on_change=calculate_values
     )
 
-# Логика расчета (опционально, чтобы поля справа заполнялись автоматически)
-# Формула: Прибыль = Сумма * (Процент / 100) * (Месяцы / 12)
-calculated_profit = amount * (percent / 100) * (months / 12)
-calculated_total = amount + calculated_profit
-
-# 4. Поле ввода "Прибыль"
+# 4. Поле "Прибыль" (Только для чтения или редактируемое?)
+# Обычно такие поля делают доступными только для чтения, чтобы пользователь не сломал логику.
+# Если нужно разрешить ручной ввод, уберите параметр disabled=True, но тогда логика усложнится.
 with col4:
-    profit = st.number_input(
+    st.number_input(
         "Прибыль", 
-        value=round(calculated_profit, 2), 
+        key="profit", 
         step=0.01,
-        key="input_profit"
+        disabled=True  # Запрещаем ручное редактирование, так как это результат расчета
     )
 
-# 5. Поле ввода "Сумма с прибылью"
+# 5. Поле "Сумма с прибылью"
 with col5:
-    total_amount = st.number_input(
+    st.number_input(
         "Сумма с прибылью", 
-        value=round(calculated_total, 2), 
+        key="total", 
         step=0.01,
-        key="input_total"
+        disabled=True
     )
 
-# Отображение текущих настроек по умолчанию (для наглядности, можно удалить)
-with st.expander("Настройки по умолчанию"):
-    st.write(f"Стартовая сумма: {DEFAULT_AMOUNT}")
-    st.write(f"Стартовый процент: {DEFAULT_PERCENT}%")
-    st.write(f"Стартовый срок: {DEFAULT_MONTHS} мес.")
+# Первоначальный расчет при загрузке страницы
+calculate_values()
