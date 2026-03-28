@@ -41,7 +41,7 @@ def format_rub(x):
 for col in ["ФОТ", "На руках", "Прибавка на руках", "Годовой доход"]:
     df[col] = df[col].apply(format_rub)
 
-# --- Группировка по отделам ---
+# --- Группировка ---
 def get_group(row):
     pos = row["Код"]
     if pos in ["ГД", "ИГД", "ТД"]:
