@@ -67,7 +67,7 @@ st.set_page_config(page_title="Фактическое з26", layout="wide")
 st.title("Таблица ФОТов и годовых доходов сотрудников")
 
 # Фильтрация по группе
-groups = ["Все"] + sorted(df["N"].unique())
+groups = ["Все"] + sorted(df["Группа"].unique())
 selected_group = st.selectbox("Фильтр по группе:", groups)
 
 if selected_group != "Все":
